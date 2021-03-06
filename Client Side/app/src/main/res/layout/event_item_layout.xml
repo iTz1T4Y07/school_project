@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Header"
+        android:paddingTop="3dp"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_Date"
+        android:layout_marginRight="10dp"
+        android:fontFamily="@font/myriadhebrewbold"
+        android:text="01/01"
+        android:textSize="25sp"
+        android:textColor="#101010"
+        />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_Day"
+            android:text="חמישי"
+            android:fontFamily="@font/myriadhebrewbold"
+            android:textSize="25sp"
+            android:textColor="#101010"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Content"
+        android:layout_below="@+id/Header"
+        android:paddingTop="5dp"
+        android:orientation="horizontal"
+        android:descendantFocusability="afterDescendants"
+        android:layout_centerHorizontal="true"
+        >
+
+        <androidx.cardview.widget.CardView
+            android:clickable="true"
+            android:id="@+id/btn_Morning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            card_view:cardCornerRadius="10dp"
+            card_view:cardElevation="7dp"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lay_Morning"
+                android:orientation="vertical"
+                android:paddingHorizontal="20dp"
+                android:background="@drawable/event_btn_gradient"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_morning"
+                    android:layout_gravity="center"
+                    android:text="בוקר"
+                    android:fontFamily="@font/arialbd"
+                    android:textSize="20sp"
+                    android:textColor="#101010"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_morning_count"
+                    android:layout_gravity="center"
+                    android:text="30"
+                    android:fontFamily="@font/arialbd"
+                    android:textSize="20sp"
+                    android:textColor="#101010"
+                    />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:clickable="true"
+            android:id="@+id/btn_afternoon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            card_view:cardCornerRadius="10dp"
+            card_view:cardElevation="7dp"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lay_Afternoon"
+                android:orientation="vertical"
+                android:paddingHorizontal="20dp"
+                android:background="@drawable/event_btn_gradient"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_afternoon"
+                    android:layout_gravity="center"
+                    android:text="צהריים"
+                    android:fontFamily="@font/arialbd"
+                    android:textSize="20sp"
+                    android:textColor="#101010"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_afternoon_count"
+                    android:layout_gravity="center"
+                    android:text="30"
+                    android:fontFamily="@font/arialbd"
+                    android:textSize="20sp"
+                    android:textColor="#101010"
+                    />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:clickable="true"
+            android:id="@+id/btn_evening"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            card_view:cardCornerRadius="10dp"
+            card_view:cardElevation="7dp"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lay_evening"
+                android:orientation="vertical"
+                android:paddingHorizontal="20dp"
+                android:background="@drawable/event_btn_gradient"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_evening"
+                    android:layout_gravity="center"
+                    android:text="ערב"
+                    android:fontFamily="@font/arialbd"
+                    android:textSize="20sp"
+                    android:textColor="#101010"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_evening_count"
+                    android:layout_gravity="center"
+                    android:text="30"
+                    android:fontFamily="@font/arialbd"
+                    android:textSize="20sp"
+                    android:textColor="#101010"
+                    />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </LinearLayout>
+
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_baseline_chevron_right_24"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="Choose" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:layout_below="@id/Content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginHorizontal="20dp"
+        card_view:cardBackgroundColor="#959595"
+        card_view:cardCornerRadius="1dp"
+        />
+
+
+</RelativeLayout>

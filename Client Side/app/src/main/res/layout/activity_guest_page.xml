@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".GuestPage">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/myriadhebrewbold"
+        android:text="הפרופיל שלי"
+        android:textColor="#000000"
+        android:textSize="40sp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/heeboregular"
+        android:text="לא מחובר - נא להתחבר"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        />
+
+    <Button
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_Login"
+        android:layout_marginTop="150dp"
+        android:layout_gravity="center"
+        android:text="התחברות"
+        android:fontFamily="@font/heebobold"
+        android:textSize="40sp"
+        android:background="@drawable/button_n1"
+        />
+
+    <Button
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_Register"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:text="הרשמה"
+        android:fontFamily="@font/heebobold"
+        android:textSize="40sp"
+        android:background="@drawable/button_n1"
+        />
+
+</LinearLayout>
