@@ -85,14 +85,4 @@ public class SocketTask extends AsyncTask<JSONObject, Void, JSONObject> {
         }
         return receivedJSON;
     }
-
-    private void closeConnection(){
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("Status", "Close");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        sendData(jsonObject);
-    }
 }

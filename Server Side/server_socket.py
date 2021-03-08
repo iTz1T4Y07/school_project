@@ -67,6 +67,7 @@ def new_connection_handle(client_socket, address):
                 client_socket.send(" ".encode())
                 threading.Event().wait(2)
                 time_passed = time_passed + 2
+            raise ConnectionAbortedError
         except ConnectionAbortedError as e:
             client_socket.close()
 
