@@ -35,6 +35,7 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_page);
+        getSupportActionBar().setTitle("");
 
         if(GlobalVars.getConnectedState() == true) {
             setResult(RESULT_CANCELED);
@@ -145,7 +146,8 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
                         (email.charAt(0) == '@') || (email.charAt(0) == '.') ||
                         (email.lastIndexOf('@') != email.indexOf('@')) ||
                         (email.lastIndexOf('.') != email.indexOf('.')) ||
-                        (!email.substring(email.length()-4, email.length()).equals(".com"))
+                        (!email.substring(email.length()-4, email.length()).equals(".com") ||
+                                (email.contains("@.")))
         ){
             etEmail.setError("על כתובת המייל להיות תקינה!\nכתובת מייל תקינה לדוגמא:\nexample@example.com");
             status = false;
@@ -154,10 +156,6 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
             btnDate.setError("נא לבחור תאריך לידה");
             status = false;
         }
-
-
-        status = true;
-
 
         return status;
     }

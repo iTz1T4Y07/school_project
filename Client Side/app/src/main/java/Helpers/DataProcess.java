@@ -260,4 +260,30 @@ public class DataProcess {
         return ErrorCode.Action_Failed;
 
     }
+
+    public static JSONObject getUserInfo(int userID){
+        /**
+         * Using SocketTask to connect to server and converts the JSON object sent to ArrayList
+         * @return ArrayList of Beach type, contains the data from the JSON object
+         */
+        try {
+            JSONObject args = new JSONObject();
+            args.put(JsonArg.ID_KEY.getValue(), userID);
+
+            SocketTask dataTransportTask = new SocketTask(JSONObjectBuilder(Request.GET_USER_INFO, args));
+            JSONObject receivedJSONObject = dataTransportTask.execute().get();
+            if(receivedJSONObject == null)
+                return null;
+            if (receivedJSONObject.getInt(JsonArg.ERROR_ID_KEY.getValue()) != ErrorCode.Success.getCode())
+                return null;
+            JSONObject data = receivedJSONObject.getJSONObject(JsonArg.ARGS_KEY.getValue());
+            return data;
+
+        }
+        catch (JSONException | ExecutionException | InterruptedException e){
+            Log.e("Exception", e.toString());
+        }
+        return null;
+    }
+
 }

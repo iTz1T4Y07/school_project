@@ -18,6 +18,7 @@ public class GuestPage extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest_page);
+        getSupportActionBar().setTitle("");
 
         if(GlobalVars.getConnectedState() == true) {
             setResult(RESULT_CANCELED);

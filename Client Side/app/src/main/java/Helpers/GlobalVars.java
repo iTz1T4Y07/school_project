@@ -15,6 +15,7 @@ public class GlobalVars {
 
     //Enums
 
+
     public enum Request {
         ADD_USER("ADD_USER"),
         LOGIN_CHECK("LOGIN_CHECK"),

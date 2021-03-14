@@ -34,6 +34,7 @@ public class BeachPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beach_page);
+        getSupportActionBar().setTitle("");
 
         beachName = (TextView)findViewById(R.id.tv_Beach_Name);
         events = (ListView)findViewById(R.id.lv_events);

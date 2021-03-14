@@ -31,6 +31,7 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
+        getSupportActionBar().setTitle("");
 
         if(GlobalVars.getConnectedState() == true) {
             setResult(RESULT_CANCELED);
