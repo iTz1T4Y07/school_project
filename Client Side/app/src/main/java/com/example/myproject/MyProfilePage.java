@@ -72,7 +72,7 @@ public class MyProfilePage extends AppCompatActivity {
                     propertiesArray.add(new Property("שם פרטי", properties.getString(GlobalVars.JsonArg.PRIVATE_NAME_KEY.getValue())));
                     propertiesArray.add(new Property("שם משפחה", properties.getString(GlobalVars.JsonArg.LAST_NAME_KEY.getValue())));
                     propertiesArray.add(new Property("אימייל", properties.getString(GlobalVars.JsonArg.EMAIL_KEY.getValue())));
-                    propertiesArray.add(new Property("תאריך לידה", properties.getString(GlobalVars.JsonArg.BIRTHDAY_KEY.getValue()).replace(" 00:00:00", "").replace('-','/')));
+                    propertiesArray.add(new Property("תאריך לידה", properties.getString(GlobalVars.JsonArg.BIRTHDAY_KEY.getValue())));
                 } catch (JSONException e) {
                     Log.e("Exception", e.toString());
                 }

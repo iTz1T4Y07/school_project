@@ -72,8 +72,6 @@ def new_connection_handle(client_socket, address):
             client_socket.close()
 
 
-
-
 def main():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((IP_ADDRESS, PORT))

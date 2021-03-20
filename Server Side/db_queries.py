@@ -182,7 +182,7 @@ def get_user_info(user_id):
                 JsonArgs.JSON_PRIVATE_NAME_KEY: result[0][1],
                 JsonArgs.JSON_LAST_NAME_KEY: result[0][2],
                 JsonArgs.JSON_EMAIL_KEY: result[0][3],
-                JsonArgs.JSON_BIRTHDAY_KEY: result[0][4]
+                JsonArgs.JSON_BIRTHDAY_KEY: "%s/%s/%s" % (result[0][4][8:10], result[0][4][5:7], result[0][4][0:4])
             }
     if conn:
         conn.close()

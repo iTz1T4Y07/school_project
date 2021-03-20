@@ -27,10 +27,9 @@ def command_handle(connected_socket):
                         "Beach ID": "1"}}
                         """
 
-        data = {"request": "LOGIN_CHECK"}
+        data = {"request": "GET_USER_INFO"}
         data["Args"] = {
-            "Username": "test",
-            "Password": "abcd123"
+            "ID": 1
         }
 
 
