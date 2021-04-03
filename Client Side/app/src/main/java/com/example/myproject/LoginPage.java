@@ -1,5 +1,13 @@
 package com.example.myproject;
 
+/**
+ * Login Page
+ * @author Itay Kahalani
+ * @date 28/03/2021
+ * @version 1.0.0
+ * @since 1.0
+ */
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,7 +43,7 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
 
         if(GlobalVars.getConnectedState() == true) {
             setResult(RESULT_CANCELED);
-            finish();
+            finish(); // Close activity
         }
 
         etUsername = (EditText)findViewById(R.id.et_Login_Username);
@@ -60,7 +68,7 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
 
         if (id == R.id.action_move_to_register){
             setResult(GlobalVars.RESULT_REGISTER_LOGIN);
-            finish();
+            finish(); // Close activity
         }
 
         return true;
@@ -70,14 +78,11 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
     public void onClick(View view) {
         if (view == btnLogin){
             LoginAsyncTask loginAsyncTask = new LoginAsyncTask(this);
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) // AsyncTask execution changed to serial execution in API 11
                 loginAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, etUsername.getText().toString(), etPassword.getText().toString());
             else
                 loginAsyncTask.execute(etUsername.getText().toString(), etPassword.getText().toString());
         }
     }
-
-
-
 
 }

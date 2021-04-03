@@ -1,5 +1,14 @@
 package Helpers;
 
+/**
+ * This class is responsible for creating a data to send to the server,
+ * and process the data received from the server
+ * @author Itay Kahalani
+ * @date 28/03/2021
+ * @version 1.0.0
+ * @since 1.0
+ */
+
 import android.app.usage.UsageEvents;
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -33,9 +42,10 @@ public class DataProcess {
 
     private static JSONObject JSONObjectBuilder(Request request, JSONObject args){
         /**
-         * Builds a JSON object
+         * Builds a JSON object in a specific format:
+         * {request: (Request), Args: {(args)}}
          * @param request
-         * @return
+         * @return JSONObject from the specific format
          */
         JSONObject jsonObject = new JSONObject();
         try {
@@ -64,7 +74,7 @@ public class DataProcess {
                 return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected(); // Checks if connectivity manager has active network and if it connected
             else {
                 final boolean[] isConnected = {false};
-                ConnectivityManager.NetworkCallback networkCallback = new ConnectivityManager.NetworkCallback(){
+                ConnectivityManager.NetworkCallback networkCallback = new ConnectivityManager.NetworkCallback(){ // Notifying network changes
 
                     @Override
                     public void onAvailable(@NonNull Network network) {
@@ -73,9 +83,9 @@ public class DataProcess {
 
                 };
 
-                connectivityManager.registerDefaultNetworkCallback(networkCallback);
+                connectivityManager.registerDefaultNetworkCallback(networkCallback); // Sets default networkCallBack to be notified on network changes
                 TimeUnit.MILLISECONDS.sleep(10);
-                connectivityManager.unregisterNetworkCallback(networkCallback);
+                connectivityManager.unregisterNetworkCallback(networkCallback); // Unregisters networkCallBack
                 return isConnected[0];
             }
         }

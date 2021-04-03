@@ -1,5 +1,13 @@
 package com.example.myproject;
 
+/**
+ * Register Page
+ * @author Itay Kahalani
+ * @date 28/03/2021
+ * @version 1.0.0
+ * @since 1.0
+ */
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -37,9 +45,9 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_register_page);
         getSupportActionBar().setTitle("");
 
-        if(GlobalVars.getConnectedState() == true) {
+        if(GlobalVars.getConnectedState() == true) { // If user is connected
             setResult(RESULT_CANCELED);
-            finish();
+            finish(); // Close activity
         }
 
         etUsername = (EditText)findViewById(R.id.et_Register_Username);
@@ -72,7 +80,7 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
 
         if (id == R.id.action_move_to_login){
             setResult(GlobalVars.RESULT_REGISTER_LOGIN);
-            finish();
+            finish(); // Close activity
         }
         return true;
     }
@@ -81,21 +89,21 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         if (view == btnDate){
             //Opens date picker dialog, the date must be between 13-100 years ago
-            DatePickerDialog datePickerDialog = new DatePickerDialog(this, AlertDialog.THEME_HOLO_DARK, this, 2000, 0, 1);
-            datePickerDialog.setTitle("Date Of Birth");
-            Calendar currentTime = Calendar.getInstance();
-            currentTime.add(Calendar.YEAR, -13);
-            datePickerDialog.getDatePicker().setMaxDate(currentTime.getTimeInMillis());
-            currentTime.add(Calendar.YEAR, -100);
-            datePickerDialog.getDatePicker().setMinDate(currentTime.getTimeInMillis());
-            datePickerDialog.show();
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this, AlertDialog.THEME_HOLO_DARK, this, 2000, 0, 1); // Creates date picker dialog
+            datePickerDialog.setTitle("Date Of Birth"); // Sets dialog title
+            Calendar currentTime = Calendar.getInstance(); // get Current time
+            currentTime.add(Calendar.YEAR, -13); // Remove 13 years
+            datePickerDialog.getDatePicker().setMaxDate(currentTime.getTimeInMillis()); // Sets dialog max date
+            currentTime.add(Calendar.YEAR, -87); // Remove 87 years
+            datePickerDialog.getDatePicker().setMinDate(currentTime.getTimeInMillis()); // Sets dialog min date
+            datePickerDialog.show(); // Shows dialog
         }
 
         else if (view == btnRegister){
             if (validation()){
 
                 RegisterAsyncTask registerAsyncTask = new RegisterAsyncTask(this);
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) // AsyncTask execution changed to serial execution in API 11
                     registerAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, etUsername.getText().toString(), etPassword.getText().toString(), etPName.getText().toString(),
                             etLName.getText().toString(), etEmail.getText().toString(), btnDate.getText().toString());
                 else
@@ -116,32 +124,63 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
             dayStr = "0" + dayStr;
         if (month < 9)
             monthStr = "0" + monthStr;
-        this.btnDate.setText(dayStr + "/" + monthStr + "/" + year);
+        this.btnDate.setText(dayStr + "/" + monthStr + "/" + year); // Change button text
     }
 
     private boolean validation(){
-        //Checks validation of the information
-        //Rise errors on the invalid edit texts
-        //If all information is valid it return true, else it returns false;
+        /** Checks validation of the information
+         * Rises errors on the invalid edit texts
+         * If all information is valid it return true, else it returns false
+         */
         boolean status = true;
         String email = etEmail.getText().toString();
-        if (etUsername.getText().toString().length() < 3) {
+        if (etUsername.getText().toString().length() == 0) { // If username field is empty
+            etUsername.setError("");
+            status = false;
+        }
+        if (etPassword.getText().toString().length() == 0) { // If password field is empty
+            etPassword.setError("");
+            status = false;
+        }
+        if (etRePassword.getText().toString().length() == 0) { // If rePassword field is empty
+            etRePassword.setError("");
+            status = false;
+        }
+        if (etPName.getText().toString().length() == 0) { // If private name field is empty
+            etPName.setError("");
+            status = false;
+        }
+        if (etLName.getText().toString().length() == 0) { // If last name field is empty
+            etLName.setError("");
+            status = false;
+        }
+        if (etEmail.getText().toString().length() == 0) { // If email field is empty
+            etEmail.setError("");
+            status = false;
+        }
+        if (btnDate.getText().toString().equals("בחר")){ // If date has not been picked
+            btnDate.setError("נא לבחור תאריך לידה");
+            status = false;
+        }
+        if (!status) // if any field is empty
+            return false;
+        if (etUsername.getText().toString().length() < 3) { // if username is less then 3 chars
             etUsername.setError("שם המשתמש חייב להיות באורך של 3 תויים לפחות");
             status = false;
         }
-        if (etPassword.getText().toString().length() < 8){
+        if (etPassword.getText().toString().length() < 8){ // if password is less then 8 chars
             etPassword.setError("על הסיסמא להיות באורך של 8 תווים לפחות");
             status = false;
         }
-        else if (etPassword.getText().toString().equals(etUsername.getText().toString())){
+        else if (etPassword.getText().toString().equals(etUsername.getText().toString())){ // if password is the same as username
             etPassword.setError("על הסיסמא להיות שונה משם המשתמש");
             status = false;
         }
-        else if (!etPassword.getText().toString().equals(etRePassword.getText().toString())){
+        else if (!etPassword.getText().toString().equals(etRePassword.getText().toString())){ // if password and rePassword does not match
             etRePassword.setError("הסיסמאות אינן תואמות!");
             status = false;
         }
-        if (
+        if ( // if email is not in the correct format
                 (email.indexOf('@') == -1) || ((email.indexOf('.') == -1)) ||
                         (email.charAt(0) == '@') || (email.charAt(0) == '.') ||
                         (email.lastIndexOf('@') != email.indexOf('@')) ||
@@ -150,10 +189,6 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
                                 (email.contains("@.")))
         ){
             etEmail.setError("על כתובת המייל להיות תקינה!\nכתובת מייל תקינה לדוגמא:\nexample@example.com");
-            status = false;
-        }
-        if (btnDate.getText().toString().equals("בחר")){
-            btnDate.setError("נא לבחור תאריך לידה");
             status = false;
         }
 

@@ -1,7 +1,29 @@
 from enum import Enum, auto
 
+"""
+Date:28/03/2021
+Written By: Itay Kahalani
+
+The script holds global variables
+"""
+
 
 class ErrorCodes(Enum):
+    """
+    A class used to represent errors
+
+    Attributes
+    ----------
+    value: tuple
+        contains the id of the error and its description
+
+    Methods
+    --------
+
+    __get__(instance, owner)
+        return the value
+
+    """
 
     def __get__(self, instance, owner):
         return self.value
@@ -16,22 +38,62 @@ class ErrorCodes(Enum):
 
 
 class UserCheckMethod(Enum):
+    """
+    A class used to represent user check methods
+
+    """
+
     Register_Check = auto()
     Login_Check = auto()
 
 
 class DayParts(Enum):
+    """
+    A class used to represent parts of day
+
+    Attributes
+    ----------
+    value: string
+        contains the name of part of day
+
+    """
+
     Morning = "Morning"
     Afternoon = "Afternoon"
     Evening = "Evening"
 
 
 class EventUpdateMethods(Enum):
+    """
+    A class used to represent update methods of event
+
+    Attributes
+    ----------
+    value: string
+        contains the name of the update method
+
+    """
+
     Add_User = "Add User"
     Remove_User = "Remove User"
 
 
 class JsonArgs(Enum):
+    """
+    A class used to represent keys used in JSONObject
+
+    Attributes
+    ----------
+    value: string
+        contains the argument used in the JSONObject
+
+    Methods
+    --------
+
+    __get__(instance, owner)
+        return the value
+
+    """
 
     def __get__(self, instance, owner):
         return self.value

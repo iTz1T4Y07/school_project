@@ -2,6 +2,14 @@ import sqlite3
 import os.path as path
 import datetime
 
+"""
+Date:28/03/2021
+Written By: Itay Kahalani
+
+The script initializes the database and its contents
+"""
+
+
 DB_PATH = r".\database\surfing_database.db"
 
 CREATE_USERS_TABLE_QUERY = """
@@ -31,9 +39,9 @@ Date DATE NOT NULL,
 Morning_Count INTEGER DEFAULT 0,
 Afternoon_Count INTEGER DEFAULT 0,
 Evening_Count INTEGER DEFAULT 0,
-Morning_Participants TEXT DEFAULT ",",
-Afternoon_Participants TEXT DEFAULT ",",
-Evening_Participants TEXT DEFAULT ",",
+Morning_Participants TEXT NOT NULL DEFAULT ",",
+Afternoon_Participants TEXT NOT NULL DEFAULT ",",
+Evening_Participants TEXT NOT NULL DEFAULT ",",
 FOREIGN KEY (Beach_ID) REFERENCES BEACHES(ID)
 );
 """
@@ -57,6 +65,11 @@ def create_sqlite_db(db_file):
 
 
 def get_db_connection(db_path):
+    """
+    Connect to a database and return the connection created
+    :param db_path: directory of the database
+    :return: connection to database
+    """
     conn = None
     try:
         conn = sqlite3.connect(db_path)
@@ -83,6 +96,13 @@ def create_new_table(conn, create_table_statement):
 
 
 def create_database(db_path):
+    """
+    Creates the whole database:
+        Creates the database file
+        Creates the required tables
+        For testing creates a user, 2 beaches, and events for each beach
+    :param db_path: directory to the database file
+    """
     if not path.exists(db_path):
         create_sqlite_db(db_path)
 
@@ -99,10 +119,11 @@ def create_database(db_path):
 
         """
         For testing:
-        Creating user: 
+        Creating user
         Creating 2 beaches: Rishon & Palmahim
-        Creating for each one 2 events
+        Creating for each one events
         """
+
         try:
             c = conn.cursor()
 
@@ -117,31 +138,47 @@ def create_database(db_path):
             """
 
             ADD_EVENT = """
-            INSERT INTO EVENTS (Beach_ID, Date, Morning_Count, Afternoon_Count, Evening_Count,Morning_Participants,
-            Afternoon_Participants, Evening_Participants)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+            INSERT INTO EVENTS (Beach_ID, Date)
+            VALUES (?, ?);
             """
 
+            ADD_EVENT_WITH_USERS = """
+                        INSERT INTO EVENTS (Beach_ID, Date, Morning_Count, Afternoon_Count, Evening_Count,Morning_Participants,
+                        Afternoon_Participants, Evening_Participants)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+                        """
+
             birthday = datetime.datetime.strptime("07-04-2003", "%d-%m-%Y")
-            c.execute(ADD_USER, (1, "Test", "abcd123", "Itay", "Kahalani", "abc@gmail.com", birthday))
+            c.execute(ADD_USER, (1, "test", "abcd123", "Itay", "Kahalani", "abc@gmail.com", birthday))
 
             c.execute(ADD_BEACH, (1, "Rishon"))
             c.execute(ADD_BEACH, (2, "Palmahim"))
 
-            sunday = datetime.datetime.strptime("14-02-2021", "%d-%m-%Y")
-            monday = datetime.datetime.strptime("15-02-2021", "%d-%m-%Y")
+            today = datetime.date.today()
 
-            c.execute(ADD_EVENT, (1, sunday, 0, 0, 0, "", "", ""))
-            c.execute(ADD_EVENT, (1, monday, 1, 0, 1, "1,", "", "1,"))
+            c.execute(ADD_EVENT, (1, today))
+            c.execute(ADD_EVENT_WITH_USERS, (1, today + datetime.timedelta(days=1), 1, 0, 1, ",1,", "", ",1,"))
 
-            c.execute(ADD_EVENT, (2, sunday, 0, 0, 0, "", "", ""))
-            c.execute(ADD_EVENT, (2, monday, 1, 0, 1, "1,", "", "1,"))
+            c.execute(ADD_EVENT_WITH_USERS, (2, today, 1, 0, 1, ",1,", "", ",1,"))
+            c.execute(ADD_EVENT, (2, today + datetime.timedelta(days=1)))
+            for i in range(2, 5):
+                c.execute(ADD_EVENT, (1, today + datetime.timedelta(days=i)))
+                c.execute(ADD_EVENT, (2, today + datetime.timedelta(days=i)))
+
             conn.commit()
+
 
         except sqlite3.Error as e:
             print(e)
 
         conn.close()
+
+        """
+        For testing:
+        Creating user
+        Creating 2 beaches: Rishon & Palmahim
+        Creating for each one events
+        """
 
 
 if __name__ == '__main__':

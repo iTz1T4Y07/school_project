@@ -1,5 +1,13 @@
 package Helpers;
 
+/**
+ * Async task to check login credentials of a user  while showing a progress dialog
+ * @author Itay Kahalani
+ * @date 28/03/2021
+ * @version 1.0.0
+ * @since 1.0
+ */
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -14,21 +22,24 @@ import static android.app.Activity.RESULT_OK;
 
 
 public class LoginAsyncTask extends AsyncTask<String, Void, Integer> {
-    //AsyncTask to show the progress dialog while trying to make a user connection.
+
     private ProgressDialog dialog;
     private Context context;
 
+    /**
+     * Creates LoginAsyncTask with the specified context
+     * @param activity The activity that will be used as a context for the asyncTask
+     */
     public LoginAsyncTask(Activity activity) {
-        this.dialog = new ProgressDialog(activity);
+        this.dialog = new ProgressDialog(activity); // Creates new progress dialog
         this.context = activity;
     }
 
     @Override
     protected void onPreExecute() {
-        super.onPreExecute();
-        this.dialog.setMessage("מבצע התחברות, נא להמתין...");
-        this.dialog.setCancelable(false);
-        this.dialog.show();
+        this.dialog.setMessage("מבצע התחברות, נא להמתין..."); // Sets dialog message
+        this.dialog.setCancelable(false); // Sets dialog cancelable option
+        this.dialog.show(); // Shows dialog
     }
     @Override
     protected Integer doInBackground(String... args) {
@@ -37,7 +48,7 @@ public class LoginAsyncTask extends AsyncTask<String, Void, Integer> {
         String password = args[1];
 
 
-        if (!DataProcess.checkConnectionAvailability(this.context.getApplicationContext()))
+        if (!DataProcess.checkConnectionAvailability(this.context.getApplicationContext())) // If there is no connection
             return GlobalVars.ErrorCode.No_Connection.getCode() * (-1);
         int errorCode = DataProcess.loginCheck(username, password);
         return errorCode;

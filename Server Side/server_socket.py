@@ -5,6 +5,14 @@ import command_functions
 from global_vars import ErrorCodes, JsonArgs
 import select
 
+"""
+Date:28/03/2021
+Written By: Itay Kahalani
+
+The script creates server socket and handle connections
+"""
+
+
 IP_ADDRESS = '0.0.0.0'
 PORT = 21211
 PACKET_SIZE = 1024
@@ -21,11 +29,13 @@ COMMANDS = {"ADD_USER": command_functions.add_new_user,
 
 def new_connection_handle(client_socket, address):
     """
-    Handles a new connection
-    Finds the right function and call it
+    Handles a new connection:
+        Retrieve data from connection
+        Finds the right function and call it
+        Sends the required data to the client
+        Closes the connection
     :param client_socket: the socket that holding the client data
     :param address: IP address of the client
-    :return:
     """
     print("New connection from {}".format(address))
 
@@ -64,23 +74,31 @@ def new_connection_handle(client_socket, address):
         try:
             time_passed = 0
             while time_passed < TIMEOUT:
-                client_socket.send(" ".encode())
-                threading.Event().wait(2)
-                time_passed = time_passed + 2
+                client_socket.send(" ".encode())  # Trying to send data to client
+                threading.Event().wait(2)  # Waiting two seconds
+                time_passed = time_passed + 2  # Adding two seconds to the time passed counter
             raise ConnectionAbortedError
         except ConnectionAbortedError as e:
             client_socket.close()
 
 
 def main():
+    # Create a TCP/IP socket
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    # Bind the socket to the port
     server_socket.bind((IP_ADDRESS, PORT))
-    server_socket.listen(10)
+
+    # Listen for incoming connections
+    server_socket.listen(30)
     print("Listening for connections on port %d" % PORT)
 
     while True:
         print("Server is waiting for a new connection")
+        # Wait for connection
         client_socket, address = server_socket.accept()
+
+        # Start a thread to handle the connection
         connection_thread = threading.Thread(target=new_connection_handle, args=(client_socket, address))
         connection_thread.start()
 

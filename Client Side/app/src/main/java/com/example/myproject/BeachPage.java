@@ -1,5 +1,14 @@
 package com.example.myproject;
 
+/**
+ * Screen of a beach, shows the following days in the beach
+ * @author Itay Kahalani
+ * @date 28/03/2021
+ * @version 1.0.0
+ * @since 1.0
+ */
+
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -43,44 +52,42 @@ public class BeachPage extends AppCompatActivity {
         if (intent.getExtras() == null)
             finish();
         else {
+            // Extract intent extras
             beachName.setText(intent.getExtras().getString("Beach Name"));
             beachId = intent.getExtras().getInt("Id");
         }
 
         events.setTag(beachId);
 
-        //TODO: Call a function that connects to the server and asks for beach event
-        //TODO: Provide Beach id in the call
-        //TODO: returns ArrayList of events
-        if (!DataProcess.checkConnectionAvailability(getApplicationContext())){ //If connection is disabled
-            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
-            builder.setTitle("שגיאת חיבור");
-            builder.setMessage("אנא בדוק את החיבור לאינטרנט ונסה שוב");
-            builder.setCancelable(false);
-            builder.setPositiveButton("נסה שוב", new ConnectionDialogHandler());
-            builder.setNegativeButton("צא", new ConnectionDialogHandler());
-            AlertDialog dialog = builder.create();
-            dialog.setOwnerActivity(this);
+        if (DataProcess.checkConnectionAvailability(getApplicationContext()) == false){ // If connection is disabled
+            android.app.AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("שגיאת חיבור"); // Sets builder title
+            builder.setMessage("אנא בדוק את החיבור לאינטרנט ונסה שוב"); // Sets builder message
+            builder.setCancelable(false); // Sets builder cancelable option
+            builder.setPositiveButton("נסה שוב", new ConnectionDialogHandler()); // Sets builder positive button and the handler
+            builder.setNegativeButton("צא", new ConnectionDialogHandler()); // Sets builder negative button and the handler
+            AlertDialog dialog = builder.create(); // Creates dialog
+            dialog.setOwnerActivity(this); // Sets dialog owner activity
 
-            dialog.show();
+            dialog.show(); // Shows dialog
         }
         else {
             eventsArray = DataProcess.getEventList(GlobalVars.getConnectedId(), beachId);
 
             if (eventsArray == null) {
                 android.app.AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("שגיאת חיבור");
-                builder.setMessage("ניסיון ההתחברות לשרת נכשל, אנא נסה שוב בעוד כמה דקות");
-                builder.setCancelable(false);
-                builder.setPositiveButton("נסה שוב", new ConnectionDialogHandler());
-                builder.setNegativeButton("צא", new ConnectionDialogHandler());
-                AlertDialog dialog = builder.create();
-                dialog.setOwnerActivity(this);
+                builder.setTitle("שגיאת חיבור"); // Sets builder title
+                builder.setMessage("ניסיון ההתחברות לשרת נכשל, אנא נסה שוב בעוד כמה דקות"); // Sets builder message
+                builder.setCancelable(false); // Sets builder cancelable option
+                builder.setPositiveButton("נסה שוב", new ConnectionDialogHandler()); // Sets builder positive button and the handler
+                builder.setNegativeButton("צא", new ConnectionDialogHandler()); // Sets builder negative button and the handler
+                AlertDialog dialog = builder.create(); // Creates dialog
+                dialog.setOwnerActivity(this); // Sets dialog owner activity
 
-                dialog.show();
+                dialog.show(); dialog.show(); // Shows dialog
             } else {
-                eventLvAdapter = new EventLvAdapter(this, 0, 0, eventsArray);
-                events.setAdapter(eventLvAdapter);
+                eventLvAdapter = new EventLvAdapter(this, 0, 0, eventsArray); // Creates new adapter
+                events.setAdapter(eventLvAdapter); // Initialize list view with adapter
             }
         }
 

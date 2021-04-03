@@ -1,5 +1,13 @@
 package Helpers;
 
+/**
+ * Adapter for ListView of events
+ * @author Itay Kahalani
+ * @date 28/03/2021
+ * @version 1.0.0
+ * @since 1.0
+ */
+
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -26,6 +34,13 @@ public class EventLvAdapter extends ArrayAdapter<BeachEvent> {
     private Context context;
     private List<BeachEvent> data;
 
+    /**
+     * Creates an adapter with the specified context, resource, textViewResourceId and data
+     * @param context The context of the adapter
+     * @param resource The resource ID for a layout file containing a layout to use when instantiating views.
+     * @param textViewResourceId The id of the TextView within the layout resource to be populated
+     * @param data the data the adapter holds
+     */
     public EventLvAdapter(Context context, int resource, int textViewResourceId, List<BeachEvent> data){
         super(context, resource, textViewResourceId, data);
         this.context = context;
@@ -34,8 +49,8 @@ public class EventLvAdapter extends ArrayAdapter<BeachEvent> {
 
     @Override
     public View getView(int pos, @Nullable View convertView, @NonNull ViewGroup parent) {
-        LayoutInflater layoutInflater = ((Activity)this.context).getLayoutInflater();
-        View item = layoutInflater.inflate(R.layout.event_item_layout, parent, false);
+        LayoutInflater layoutInflater = ((Activity)this.context).getLayoutInflater(); // Gets layout inflater
+        View item = layoutInflater.inflate(R.layout.event_item_layout, parent, false); // Inflate a layout to our view
         TextView tvDay = (TextView)item.findViewById(R.id.tv_Day);
         TextView tvDate = (TextView)item.findViewById(R.id.tv_Date);
         TextView tvMorningCount = (TextView)item.findViewById(R.id.tv_morning_count);
@@ -50,26 +65,26 @@ public class EventLvAdapter extends ArrayAdapter<BeachEvent> {
 
         BeachEvent temp = this.data.get(pos);
 
-        tvDay.setText(temp.getDay());
-        tvDate.setText(new SimpleDateFormat("dd/MM").format(temp.getDate()));
-        tvMorningCount.setText(String.valueOf(temp.getMorningCounter()));
-        tvAfternoonCount.setText(String.valueOf(temp.getAfternoonCounter()));
-        tvEveningCount.setText(String.valueOf(temp.getEveningCounter()));
+        tvDay.setText(temp.getDay()); // Sets the name of the day in the week
+        tvDate.setText(new SimpleDateFormat("dd/MM").format(temp.getDate())); // Sets the date
+        tvMorningCount.setText(String.valueOf(temp.getMorningCounter())); // Sets the number of people participate in the morning
+        tvAfternoonCount.setText(String.valueOf(temp.getAfternoonCounter())); // Sets the number of people participate in the afternoon
+        tvEveningCount.setText(String.valueOf(temp.getEveningCounter())); // Sets the number of people participate in the evening
 
-        if (GlobalVars.getConnectedState() == true){
-            if (temp.isMorning()) {
+        if (GlobalVars.getConnectedState() == true){ // If user is connected
+            if (temp.isMorning()) { // If user participate in the morning
                 btnMorning.setTag(true);
                 layMorning.setBackgroundResource(R.drawable.event_btn_gradient_participate);
             }
             else
                 btnMorning.setTag(false);;
-            if (temp.isAfternoon()) {
+            if (temp.isAfternoon()) { // If user participate in the afternoon
                 btnAfternoon.setTag(true);
                 layAfternoon.setBackgroundResource(R.drawable.event_btn_gradient_participate);
             }
             else
                 btnAfternoon.setTag(false);
-            if (temp.isEvening()) {
+            if (temp.isEvening()) { // If user participate in the evening
                 btnEvening.setTag(true);
                 layEvening.setBackgroundResource(R.drawable.event_btn_gradient_participate);
             }
@@ -80,7 +95,7 @@ public class EventLvAdapter extends ArrayAdapter<BeachEvent> {
             btnAfternoon.setOnClickListener(new EventClickListener());
             btnEvening.setOnClickListener(new EventClickListener());
         }
-        else{
+        else{ // If user is not connected
             btnMorning.setClickable(false);
             btnAfternoon.setClickable(false);
             btnEvening.setClickable(false);

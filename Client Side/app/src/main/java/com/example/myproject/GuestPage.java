@@ -1,5 +1,14 @@
 package com.example.myproject;
 
+/**
+ * My Profile Page for guest screen, asks to register and login
+ * @author Itay Kahalani
+ * @date 28/03/2021
+ * @version 1.0.0
+ * @since 1.0
+ */
+
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -36,13 +45,13 @@ public class GuestPage extends AppCompatActivity implements View.OnClickListener
     public void onClick(View view) {
         if (view == btnLogin){
             //Moves user to Login Page
-            Intent intent = new Intent(GuestPage.this, LoginPage.class);
-            startActivityForResult(intent, GlobalVars.LOGIN_PAGE_REQUEST_CODE);
+            Intent intent = new Intent(GuestPage.this, LoginPage.class); // Creates intent
+            startActivityForResult(intent, GlobalVars.LOGIN_PAGE_REQUEST_CODE); // Start activity for result using intent
         }
         else if (view == btnRegister){
             //Moves user to Register Page
-            Intent intent = new Intent(GuestPage.this, RegisterPage.class);
-            startActivityForResult(intent, GlobalVars.REGISTER_PAGE_REQUEST_CODE);
+            Intent intent = new Intent(GuestPage.this, RegisterPage.class); // Creates intent
+            startActivityForResult(intent, GlobalVars.REGISTER_PAGE_REQUEST_CODE); // Start activity for result using intent
         }
     }
 
@@ -53,21 +62,21 @@ public class GuestPage extends AppCompatActivity implements View.OnClickListener
         if (requestCode == GlobalVars.LOGIN_PAGE_REQUEST_CODE){
             if (resultCode == RESULT_OK){
                 setResult(RESULT_OK);
-                finish();
+                finish(); // Close activity
             }
 
             else if (resultCode == GlobalVars.RESULT_REGISTER_LOGIN){
                 //Moves user to Register Page
-                Intent intent = new Intent(GuestPage.this, RegisterPage.class);
-                startActivityForResult(intent, GlobalVars.REGISTER_PAGE_REQUEST_CODE);
+                Intent intent = new Intent(GuestPage.this, RegisterPage.class); // Creates intent
+                startActivityForResult(intent, GlobalVars.REGISTER_PAGE_REQUEST_CODE); // Start activity for result using intent
             }
         }
 
         else if (requestCode == GlobalVars.REGISTER_PAGE_REQUEST_CODE){
             if ((resultCode == RESULT_OK) || (resultCode == GlobalVars.RESULT_REGISTER_LOGIN)){
                 //Moves user to Login Page
-                Intent intent = new Intent(GuestPage.this, LoginPage.class);
-                startActivityForResult(intent, GlobalVars.LOGIN_PAGE_REQUEST_CODE);
+                Intent intent = new Intent(GuestPage.this, LoginPage.class); // Creates intent
+                startActivityForResult(intent, GlobalVars.LOGIN_PAGE_REQUEST_CODE); // Start activity for result using intent
             }
         }
     }

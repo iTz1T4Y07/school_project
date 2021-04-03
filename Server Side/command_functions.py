@@ -2,6 +2,13 @@ import db_queries
 import datetime
 from global_vars import ErrorCodes, UserCheckMethod, JsonArgs, DayParts, EventUpdateMethods
 
+"""
+Date:28/03/2021
+Written By: Itay Kahalani
+
+The script manage to handle a request and return the information required.
+"""
+
 
 def dict_builder(error, args=None):
     """
@@ -48,7 +55,8 @@ def check_login_credentials(json_object):
     Extracting the login credentials about a user
     Then calling another function to check if the user exist
     :param json_object: Contains the args of the user
-    :return: Dictionary that represents JSON Object, that contains the Error code and the ID of the user if exist
+    :return: Dictionary that represents JSON Object, that contains the Error code and the ID of the user if exist,
+            Success ErrorCode if user exist, if it is not exist - Wrong_User_Credentials error code.
     """
 
     try:

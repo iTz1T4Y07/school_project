@@ -1,5 +1,13 @@
 package Helpers;
 
+/**
+ * Async task to register a new user while showing a progress dialog
+ * @author Itay Kahalani
+ * @date 28/03/2021
+ * @version 1.0.0
+ * @since 1.0
+ */
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -10,22 +18,25 @@ import static android.app.Activity.RESULT_OK;
 import static Helpers.GlobalVars.ErrorCode;
 
 public class RegisterAsyncTask extends AsyncTask<String, Void, ErrorCode> {
-    //AsyncTask to show the progress dialog while trying to register a new user.
 
     private ProgressDialog dialog;
     private Context context;
 
+    /**
+     * Creates RegisterAsyncTask with the specified context
+     * @param activity The activity that will be used as a context for the asyncTask
+     */
     public RegisterAsyncTask(Activity activity){
-        this.dialog = new ProgressDialog(activity);
+        this.dialog = new ProgressDialog(activity); // Creates new progress dialog
         this.context = activity;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        this.dialog.setMessage("מבצע רישום, נא להמתין...");
-        this.dialog.setCancelable(false);
-        this.dialog.show();
+        this.dialog.setMessage("מבצע רישום, נא להמתין..."); // Sets dialog message
+        this.dialog.setCancelable(false); // Sets dialog cancelable option
+        this.dialog.show(); // Shows dialog
     }
 
     @Override
@@ -38,7 +49,7 @@ public class RegisterAsyncTask extends AsyncTask<String, Void, ErrorCode> {
         String email = args[4];
         String birthdayDate = args[5].replace('/', '-');
 
-        if (!DataProcess.checkConnectionAvailability(this.context.getApplicationContext()))
+        if (!DataProcess.checkConnectionAvailability(this.context.getApplicationContext())) // If there is no connection
             return ErrorCode.No_Connection;
         ErrorCode errorCode = DataProcess.registerNewUser(username, password, privateName, lastName, email, birthdayDate);
         return errorCode;

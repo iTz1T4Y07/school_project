@@ -2,8 +2,14 @@ import json
 import sqlite3
 from db_setup import get_db_connection, DB_PATH
 from global_vars import ErrorCodes, UserCheckMethod, JsonArgs, DayParts
-import datetime
 
+
+"""
+Date:28/03/2021
+Written By: Itay Kahalani
+
+The script manage to connect to database, update/add information to the database or extract information form database.
+"""
 
 EVENT_LIST_LIMIT = 7
 
@@ -48,7 +54,7 @@ GET_EVENT_LIST = """
 SELECT ID, Date, Morning_Count, Afternoon_Count, Evening_Count,
 Morning_Participants, Afternoon_Participants, Evening_Participants 
 FROM EVENTS WHERE Beach_ID = (?) AND
-(Julianday(Date) - julianday('now')) >= 0 
+(Julianday(Date) - julianday('now', 'start of day')) >= 0 
 LIMIT (?);
 """
 
@@ -279,7 +285,7 @@ def add_user_to_event(event_id, user_id, day_part):
     if conn:
         conn.close()
     if result is None:
-        return ErrorCodes.DB_Failure, None
+        return ErrorCodes.DB_Failure
     else:
         return ErrorCodes.Success
 
@@ -312,6 +318,6 @@ def remove_user_from_event(event_id, user_id, day_part):
     if conn:
         conn.close()
     if result is None:
-        return ErrorCodes.DB_Failure, None
+        return ErrorCodes.DB_Failure
     else:
         return ErrorCodes.Success
