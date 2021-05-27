@@ -189,9 +189,5 @@ if __name__ == '__main__':
     main()
 
 
-def main():
-    create_database(DB_PATH)
-
-
 if __name__ == '__main__':
-    main()
+    create_database(DB_PATH)
