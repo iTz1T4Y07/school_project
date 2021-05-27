@@ -144,5 +144,9 @@ def create_database(db_path):
         conn.close()
 
 
-if __name__ == '__main__':
+def main():
     create_database(DB_PATH)
+
+
+if __name__ == '__main__':
+    main()
