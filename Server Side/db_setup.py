@@ -186,4 +186,8 @@ def main():
 
 
 if __name__ == '__main__':
+    main()
+
+
+if __name__ == '__main__':
     create_database(DB_PATH)
